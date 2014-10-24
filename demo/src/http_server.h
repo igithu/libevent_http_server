@@ -8,7 +8,7 @@
  
 /**
  * @file http_server.h
- * @author aishuyu(com@baidu.com)
+ * @author asy5178@163.com
  * @date 2014/10/22 15:01:18
  * @brief 
  *  

@@ -8,7 +8,7 @@
  
 /**
  * @file util.cpp
- * @author aishuyu(com@baidu.com)
+ * @author asy5178@163.com
  * @date 2014/10/23 22:42:03
  * @brief 
  *  

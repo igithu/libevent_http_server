@@ -8,7 +8,7 @@
  
 /**
  * @file http_handler.cpp
- * @author aishuyu(com@baidu.com)
+ * @author asy5178@163.com
  * @date 2014/10/23 23:09:29
  * @brief 
  *  
