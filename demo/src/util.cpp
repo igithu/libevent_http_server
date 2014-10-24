@@ -56,7 +56,7 @@ void assemble_str(
     strcat(output, tmp);
     sprintf(tmp, "<br>%s: p2=%s\n", prefix, evhttp_find_header(&params, "p2"));
     strcat(output, tmp);
-    sprintf(tmp, "<br>%s: tid=%u\n", prefix, pthread_self());
+    sprintf(tmp, "<br>%s: thread id=%u\n", prefix, pthread_self());
     strcat(output, tmp);
     free(decoded_uri);
 
