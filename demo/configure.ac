@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([http_server], [0.1], [XXX@XXX.com])
-AC_CONFIG_SRCDIR([main.cc])
+AC_CONFIG_SRCDIR([src/main.cc])
 #AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE
 

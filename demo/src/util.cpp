@@ -47,7 +47,7 @@ void assemble_str(
     char *decoded_uri;
     decoded_uri = evhttp_decode_uri(uri);
 
-    sprintf(tmp, "<br>decoded_uri=%s\n", decoded_uri);
+    sprintf(tmp, "<blockquote>decoded_uri=%s\n", decoded_uri);
     strcat(output, tmp);
 
     struct evkeyvalq params;
@@ -56,7 +56,7 @@ void assemble_str(
     strcat(output, tmp);
     sprintf(tmp, "<br>%s: p2=%s\n", prefix, evhttp_find_header(&params, "p2"));
     strcat(output, tmp);
-    sprintf(tmp, "<br>%s: thread id=%u\n", prefix, pthread_self());
+    sprintf(tmp, "<br>%s: thread id=%u\n</blockquote>", prefix, pthread_self());
     strcat(output, tmp);
     if ("default" == prefix) {
         sprintf(tmp, "<br>This have two sub path \"/ex_request1\" and \"/ex_request1\"\n",
