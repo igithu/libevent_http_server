@@ -58,6 +58,11 @@ void assemble_str(
     strcat(output, tmp);
     sprintf(tmp, "<br>%s: thread id=%u\n", prefix, pthread_self());
     strcat(output, tmp);
+    if ("default" == prefix) {
+        sprintf(tmp, "<br>This have two sub path \"/ex_request1\" and \"/ex_request1\"\n",
+                pthread_self());
+        strcat(output, tmp);
+    }
     free(decoded_uri);
 
     sprintf(output_ret, http_index_html, prefix, output);

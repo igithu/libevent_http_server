@@ -28,6 +28,9 @@ void HttpHandlerEg1(struct evhttp_request *req, void *arg);
 
 void HttpHandlerEg2(struct evhttp_request *req, void *arg);
 
+void DefaultHttpHandler(struct evhttp_request *req, void *arg);
+
+
 }
 
 

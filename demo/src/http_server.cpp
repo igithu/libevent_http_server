@@ -71,6 +71,7 @@ namespace http_server {
                 return -1;
             }
             evhttp_set_timeout(httpd, 30/*timeout*/);
+            evhttp_set_gencb(httpd, DefaultHttpHandler, this);
             evhttp_set_cb(httpd, "/ex_request1", HttpHandlerEg1, NULL);
             evhttp_set_cb(httpd, "/ex_request2", HttpHandlerEg2, NULL);
             if (pthread_create(&threads[i], NULL, HttpServer::Dispatch, base) != 0) {

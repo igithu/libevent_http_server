@@ -31,6 +31,11 @@ void HttpHandlerEg2(struct evhttp_request *req, void *arg) {
     send_msg_ok(req, output_html);
 }
 
+void DefaultHttpHandler(struct evhttp_request *req, void *arg) {
+    char output_html[2048 * 2] = "\0";
+    assemble_str("default", req, output_html);
+    send_msg_ok(req, output_html);
+}
 }
 
 
