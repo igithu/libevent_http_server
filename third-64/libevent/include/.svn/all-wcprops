@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include
+END
+evhttp.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include/evhttp.h
+END
+evdns.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include/evdns.h
+END
+evrpc.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include/evrpc.h
+END
+event.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include/event.h
+END
+evutil.h
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/third-64/!svn/ver/869/tags/libevent/libevent_2-0-21-300_PD_BL/include/evutil.h
+END
