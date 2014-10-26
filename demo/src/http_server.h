@@ -24,6 +24,7 @@
 
 #include <event.h>
 #include <evhttp.h>
+#include <pthread.h>
 
 namespace http_server {
     using std::vector;
@@ -37,13 +38,17 @@ namespace http_server {
 
         private:
             static void *Dispatch(void *arg);
+            static void SignalHandler(int sig);
 
             int BindSocket(int port);
+
             
         private:
             // 
             vector<struct event_base *> remember_event_base_;
             vector<struct evhttp *> remember_evhttp_;
+
+            //int threads_size_;
     };
 }  // end of namespace
 

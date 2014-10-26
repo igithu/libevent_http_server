@@ -30,6 +30,8 @@ void HttpHandlerEg2(struct evhttp_request *req, void *arg);
 
 void DefaultHttpHandler(struct evhttp_request *req, void *arg);
 
+void ChildSignalHandler(int sig);
+
 
 }
 

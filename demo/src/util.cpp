@@ -68,19 +68,6 @@ void assemble_str(
     sprintf(output_ret, http_index_html, prefix, output);
 }
 
-void signal_handler(int sig) {
-     switch (sig) {
-         case SIGTERM:
-         case SIGHUP:
-         case SIGQUIT:
-         case SIGINT:
-         case SIGSEGV:
-             event_loopbreak(); 
-             break;
-     }
-}
-
-
 
 
 

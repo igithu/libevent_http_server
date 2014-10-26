@@ -16,7 +16,6 @@
 
 #include <fcntl.h>
 #include <signal.h>
-#include <pthread.h>
 
 #include "http_handler.h"
 #include "util.h"
@@ -27,10 +26,18 @@ namespace http_server {
 
     using namespace http_handler;
 
+    static int threads_size = 0;
+    static pthread_t *thread_list = NULL;
+
     HttpServer::HttpServer() {
     }
 
     HttpServer::~HttpServer() {
+
+        if (NULL != thread_list) {
+            delete [] thread_list;
+        }
+
         for (int i = 0; i < remember_event_base_.size(); ++i) {
             struct event_base *cur_base = remember_event_base_[i];
             if (NULL != cur_base) {
@@ -46,15 +53,16 @@ namespace http_server {
         }
     }
 
-    bool HttpServer::Start(int listen_port, int nthreads) {
+    bool HttpServer::Start(int listen_port, int nthread) {
 
         int nfd = BindSocket(listen_port);
         if (nfd < 0) {
             return -1;
         }
-        pthread_t threads[nthreads];
+        thread_list = new pthread_t(nthread);
+        threads_size = nthread;
 
-        for (int i = 0; i < nthreads; ++i) {
+        for (int i = 0; i < nthread; ++i) {
             struct event_base *base = event_init();
             if (NULL == base) {
                 return -1;
@@ -74,13 +82,19 @@ namespace http_server {
             evhttp_set_gencb(httpd, DefaultHttpHandler, this);
             evhttp_set_cb(httpd, "/ex_request1", HttpHandlerEg1, NULL);
             evhttp_set_cb(httpd, "/ex_request2", HttpHandlerEg2, NULL);
-            if (pthread_create(&threads[i], NULL, HttpServer::Dispatch, base) != 0) {
+            if (pthread_create(&thread_list[i], NULL, HttpServer::Dispatch, base) != 0) {
                  return -1;
              }
         }
+        
+        signal(SIGHUP, HttpServer::SignalHandler);
+        signal(SIGTERM, HttpServer::SignalHandler);
+        signal(SIGINT, HttpServer::SignalHandler);
+        signal(SIGQUIT, HttpServer::SignalHandler);
+        signal(SIGKILL, HttpServer::SignalHandler);
 
-        for (int i = 0; i < nthreads; ++i) {
-            pthread_join(threads[i], NULL);
+        for (int i = 0; i < nthread; ++i) {
+            pthread_join(thread_list[i], NULL);
         }
 
         return true;
@@ -120,15 +134,32 @@ namespace http_server {
 
 
     void *HttpServer::Dispatch(void *arg) {
-        signal(SIGHUP, signal_handler);
-        signal(SIGTERM, signal_handler);
-        signal(SIGINT, signal_handler);
-        signal(SIGQUIT, signal_handler);
+        // signal(SIGHUP, ChildSignalHandler);
+        // signal(SIGTERM, ChildSignalHandler);
+        // signal(SIGINT, ChildSignalHandler);
+        // signal(SIGQUIT, ChildSignalHandler);
+        signal(SIGUSR1, ChildSignalHandler);
 
         event_base_dispatch((struct event_base*)arg);
         return NULL;
     }
 
+    void HttpServer::SignalHandler(int sig) {
+        switch (sig) {
+            case SIGTERM:
+            case SIGHUP:
+            case SIGQUIT:
+            case SIGINT:
+            case SIGSEGV:
+            case SIGKILL:
+                for (int i = 0; i < threads_size; ++i) {
+                    DEBUG_LOG("Test kill tid, %u\n", thread_list[i]);
+                    pthread_kill(thread_list[i], SIGUSR1);
+                }
+                break;
+     }
+       
+    }
 }  // namespace end of http_server
 
 

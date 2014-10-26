@@ -20,6 +20,7 @@
 #ifndef  __UTIL_H_
 #define  __UTIL_H_
 
+#include <stdio.h>
 #include <evhttp.h>
 
 const static char http_index_html[] = 
@@ -28,8 +29,8 @@ const static char http_index_html[] =
 "<p>This is a just small test page.<br> your paramter:%s </body></html>";
 
 #define MYHTTPD_SIGNATURE   "test_httpd v 0.0.1"
+#define DEBUG_LOG(fmt, args...) fprintf(stderr, fmt, ## args)
 
-void signal_handler(int sig);
 void send_msg_ok(struct evhttp_request *req, const char *ret);
 void assemble_str(
         const char *prefix, struct evhttp_request *req, char *output_ret);
